@@ -32,21 +32,21 @@ package main
 import "github.com/mateuspontes/gophercss"
 
 func main() {
-  css.Set("html", map[string]interface{}{
+  css.Set("html", css.Style{
     "margin": 0,
     "padding": 0,
   })
 
-  css.Set("body", map[string]interface{}{
+  css.Set("body", css.Style{
     "backgroundColor": "#eeeeee",
     "fontFamily": "Arial",
     "fontSize": "16px",
   })
 
-  css.Set(".wrapper", map[string]interface{}{
+  css.Set(".wrapper", css.Style{
     "display": "flex",
     "justifyContent": "center",
-    ".content": map[string]interface{}{
+    ".content": css.Style{
       "flex": 1,
       "maxWidth": "600px",
 
