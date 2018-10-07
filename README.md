@@ -20,8 +20,6 @@ Now you can use `gophercss build [package]`, `gophercss build [files]` or `gophe
 
 `gophercss` uses your platform's default `GOOS` value when generating code. Supported `GOOS` values are: `linux`, `darwin`. If you're on a different platform (e.g., Windows or FreeBSD), you'll need to set the `GOOS` environment variable to a supported value. For example, `GOOS=linux gophercss build [package]`.
 
-*Note: Gophercss will try to write compiled object files of the core packages to your $GOROOT/pkg directory. If that fails, it will fall back to $GOPATH/pkg.*
-
 ### Getting started
 
 This is the initial version of the transpiler, you can write nested styles to your classes.
@@ -29,29 +27,28 @@ This is the initial version of the transpiler, you can write nested styles to yo
 ```go
 package main
 
-import "github.com/mateuspontes/gophercss"
+import "github.com/mateuspontes/gophercss/css"
 
 func main() {
   css.Set("html", css.Style{
-    "margin": 0,
-    "padding": 0,
-  })
+		"margin":  0,
+		"padding": 0,
+	})
 
-  css.Set("body", css.Style{
-    "backgroundColor": "#eeeeee",
-    "fontFamily": "Arial",
-    "fontSize": "16px",
-  })
+	css.Set("body", css.Style{
+		"backgroundColor": "#eeeeee",
+		"fontFamily": "Arial",
+		"fontSize": "16px",
+	})
 
-  css.Set(".wrapper", css.Style{
-    "display": "flex",
-    "justifyContent": "center",
-    ".content": css.Style{
-      "flex": 1,
-      "maxWidth": "600px",
-
-    }
-  })
+	css.Set(".wrapper", css.Style{
+		"display": "flex",
+		"justifyContent": "center",
+		".title": css.Style{
+			"color":      "black",
+			".sub-title": css.Style{"font-size": 10},
+		},
+	})
 }
 ```
 
@@ -59,24 +56,11 @@ The output will be:
 
 
 ```css
-html {
-  margin: 0;
-  padding: 0;
-}
-body {
-  background-color: "#eee"
-  font-family: Arial;
-  font-size: 16px;
-}
-.wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.wrapper .content {
-  flex: 1;
-  max-width: "600px";
-}
+html { margin: 0; padding: 0; }
+body { fontFamily: "Arial"; fontSize: "16px"; backgroundColor: "#eeeeee"; }
+.wrapper { justifyContent: "center"; display: "flex"; }
+.wrapper .title { color: "black"; }
+.wrapper .title .sub-title { font-size: 10; }
 ```
 
 ### Development status
